@@ -5,7 +5,7 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
-export const openAIClient = (code, event) => {
+module.exports = async function openAIClient(code, event) {
     switch (event) {
         case "translate-code":
             //TODO: how to format the prompt?

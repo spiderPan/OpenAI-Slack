@@ -1,5 +1,5 @@
 const { App } = require('@slack/bolt');
-const { openAIClient } = require("./openai/index");
+const openAIClient = require("./openai/index");
 
 require("dotenv").config();
 
@@ -20,9 +20,9 @@ app.command("/explain", async ({ command, ack, say }) => {
     app.event("message", async ({ event, say }) => {
       try {
         //event.text is what we need
-        openAIClient(event.text, "explain-code");
-        console.log(event);
-        say("Yaaay! that command works!");
+        response = openAIClient(event.text, "explain-code");
+        //console.log(event);
+        say(response.data.choices[0].text);
       } catch (error) {
         console.log("err")
         console.error(error);
