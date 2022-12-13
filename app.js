@@ -1,10 +1,11 @@
 const { App } = require('@slack/bolt');
+require("dotenv").config();
 
 const app = new App({
-  signingSecret: '0b3885c3c954fd4d624855f42122e3fc',
-  token: 'xoxb-4510978239459-4504539151814-C4ZzeDOsgdtdG61puXqk0fBv',
+  signingSecret: process.env.SLACK_SIGNING_SECRET,
+  token: process.env.SLACK_BOT_TOKEN,
   socketMode: true,
-  appToken: 'xapp-1-A04F137VARY-4511446837843-5e49f6cc66ba033f0a3e03cd17ba85c1b49f7cfab766cd33c204e821bd1b57de'
+  appToken: process.env.SLACK_APP_TOKEN
 });
 
 /* Add functionality here */
