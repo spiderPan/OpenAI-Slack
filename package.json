@@ -1,0 +1,21 @@
+{
+  "name": "openai-slack",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/spiderPan/OpenAI-Slack.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/spiderPan/OpenAI-Slack/issues"
+  },
+  "homepage": "https://github.com/spiderPan/OpenAI-Slack#readme",
+  "dependencies": {
+    "@slack/bolt": "^3.12.2",
+    "openai": "^3.1.0"
+  }
+}
