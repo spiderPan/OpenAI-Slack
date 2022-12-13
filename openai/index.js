@@ -32,7 +32,7 @@ module.exports = async function openAIClient(code, event) {
             });
         case "time-complexity":
             return await openai.createCompletion({
-                model: "code-davinci-003",
+                model: "text-davinci-003",
                 prompt: code,
                 temperature: 0,
                 max_tokens: 64,

@@ -1,7 +1,6 @@
+require("dotenv").config();
 const { App } = require('@slack/bolt');
 const openAIClient = require("./openai/index");
-
-require("dotenv").config();
 
 const app = new App({
   signingSecret: process.env.SLACK_SIGNING_SECRET,
