@@ -36,9 +36,13 @@ You should now be able to access the app at [http://localhost:3000](http://local
 ### Minimal Requriement (to have something up and running!)
 1. Register an app with API key in OpenAPI (easy)
 2. Pick an example or couples ( input: code snippet, output: whatever showed in examples)
+    
     a. Explain Code https://beta.openai.com/examples/default-explain-code
+
     b. Calculate Complexity  https://beta.openai.com/examples/default-time-complexity
+
     c. Translate programming language https://beta.openai.com/examples/default-translate-code
+
 3. Create a Slack bot (with the provided library)
 4. Connect it!
 
