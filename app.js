@@ -1,4 +1,6 @@
 const { App } = require('@slack/bolt');
+const { openAIClient } = require("./openai/index");
+
 require("dotenv").config();
 
 const app = new App({
@@ -14,10 +16,11 @@ app.command("/explain", async ({ command, ack, say }) => {
   try {
     await ack();
     say("Please provide your code");
-    
+
     app.event("message", async ({ event, say }) => {
       try {
         //event.text is what we need
+        openAIClient(event.text, "explain-code");
         console.log(event);
         say("Yaaay! that command works!");
       } catch (error) {
@@ -25,7 +28,7 @@ app.command("/explain", async ({ command, ack, say }) => {
         console.error(error);
       }
     });
-    
+
   } catch (error) {
     console.log("err")
     console.error(error);
@@ -40,6 +43,7 @@ app.command("/translate-code", async ({ command, ack, say }) => {
     app.event("message", async ({ event, say }) => {
       try {
         //event.text is what we need
+        openAIClient(event.text, "translate-code");
         console.log(event);
         say("Yaaay! that command works!");
       } catch (error) {
@@ -47,7 +51,7 @@ app.command("/translate-code", async ({ command, ack, say }) => {
         console.error(error);
       }
     });
-    
+
   } catch (error) {
     console.log("err")
     console.error(error);
@@ -62,6 +66,7 @@ app.command("/time-complexity", async ({ command, ack, say }) => {
     app.event("message", async ({ event, say }) => {
       try {
         //event.text is what we need
+        openAIClient(event.text, "time-complexity");
         console.log(event);
         say("Yaaay! that command works!");
       } catch (error) {
@@ -69,7 +74,7 @@ app.command("/time-complexity", async ({ command, ack, say }) => {
         console.error(error);
       }
     });
-    
+
   } catch (error) {
     console.log("err")
     console.error(error);
