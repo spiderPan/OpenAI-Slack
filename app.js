@@ -1,4 +1,5 @@
 const { App } = require('@slack/bolt');
+const reqOpenAI = require('./openai/index')
 require("dotenv").config();
 
 const app = new App({
@@ -8,12 +9,10 @@ const app = new App({
   appToken: process.env.SLACK_APP_TOKEN
 });
 
-/* Add functionality here */
 app.event("message", async ({ event, say }) => {
   try {
-    //event.text is what we need
-    console.log(event);
-    say("Yaaay! that command works!");
+    answer = await reqOpenAI(event.text)
+    say(answer);
   } catch (error) {
     console.log("err")
     console.error(error);
