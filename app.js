@@ -1,4 +1,5 @@
 const { App } = require('@slack/bolt');
+const reqOpenAI = require('./openai/index')
 require("dotenv").config();
 
 const app = new App({
@@ -8,22 +9,20 @@ const app = new App({
   appToken: process.env.SLACK_APP_TOKEN
 });
 
-/* Add functionality here */
-
 app.command("/explain", async ({ command, ack, say }) => {
   try {
     await ack();
     say("Please provide your code");
     
-    app.event("message", async ({ event, say }) => {
+    app.event('message', async ({ event, say }) => {
       try {
-        //event.text is what we need
-        console.log(event);
-        say("Yaaay! that command works!");
+        answer = await reqOpenAI(event.text, "explain")
+        say(answer);
       } catch (error) {
         console.log("err")
         console.error(error);
       }
+      
     });
     
   } catch (error) {
@@ -35,18 +34,32 @@ app.command("/explain", async ({ command, ack, say }) => {
 app.command("/translate-code", async ({ command, ack, say }) => {
   try {
     await ack();
-    say("PLease provide your code and comments to specify the source and target languages");
+    say("Please specify source language")
 
-    app.event("message", async ({ event, say }) => {
-      try {
-        //event.text is what we need
-        console.log(event);
-        say("Yaaay! that command works!");
-      } catch (error) {
-        console.log("err")
-        console.error(error);
-      }
-    });
+    app.event("message", async ({event, say}) => {
+      let source = event.text
+
+      say("Please specify target language")
+
+      app.event("message", async ({event, say}) => {
+        let target = event.text
+
+        say("Please provide your code")
+
+        app.event("me_message", async ({event, say}) => {
+          try {
+            const answer = await reqOpenAI(event.text, "translate-code", {
+              sourceLanguage: source,
+              targetLanguage: target
+            })
+            say(answer);
+          } catch (error) {
+            console.log("err")
+            console.error(error);
+          }
+        })
+      })
+    })
     
   } catch (error) {
     console.log("err")
@@ -61,9 +74,8 @@ app.command("/time-complexity", async ({ command, ack, say }) => {
 
     app.event("message", async ({ event, say }) => {
       try {
-        //event.text is what we need
-        console.log(event);
-        say("Yaaay! that command works!");
+        const answer = await reqOpenAI(event.text, "time-complexity")
+        say(answer)
       } catch (error) {
         console.log("err")
         console.error(error);
