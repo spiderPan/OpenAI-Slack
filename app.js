@@ -16,6 +16,7 @@ app.command("/explain", async ({ command, ack, say }) => {
     
     app.event('message', async ({ event, say }) => {
       try {
+        await ack();
         answer = await reqOpenAI(event.text, "explain")
         say(answer);
       } catch (error) {
@@ -74,6 +75,7 @@ app.command("/time-complexity", async ({ command, ack, say }) => {
 
     app.event("message", async ({ event, say }) => {
       try {
+        await ack();
         const answer = await reqOpenAI(event.text, "time-complexity")
         say(answer)
       } catch (error) {
